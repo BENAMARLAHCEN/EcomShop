@@ -45,9 +45,10 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Product $products)
     {
-        //
+        $products = Product::get();
+        return view('products.show',compact('products'));
     }
 
     /**

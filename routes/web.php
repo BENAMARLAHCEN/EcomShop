@@ -15,8 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[ProductController::class,'index']);
+Route::get('/show',[ProductController::class,'show']);
 Route::get('/checkout', function () {
     return view('products.checkout-page');
+});
+Route::get('/show', function () {
+    return view('products.show');
+});
+Route::get('/search', function () {
+    return view('products.search');
 });
 
 
