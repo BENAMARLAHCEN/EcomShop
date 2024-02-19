@@ -38,38 +38,13 @@
     <section class="text-gray-600 body-font">
         <div class="container px-5 py-24 mx-auto">
             <div class="flex flex-wrap -m-4">
-                <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-                    <x-product-card></x-product-card>
-                </div>
+                @foreach ($products as $product)
+                    <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
 
-                <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-                    <x-product-card></x-product-card>
-                </div>
-                <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-                    <x-product-card></x-product-card>
-                </div>
-                <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-                    <x-product-card></x-product-card>
-                </div>
-                <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-                    <x-product-card></x-product-card>
-                </div>
-                <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-                    <x-product-card></x-product-card>
-                </div>
-                <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-                    <x-product-card></x-product-card>
-                </div>
-                <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-                    <x-product-card></x-product-card>
-                </div>
-                <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-                    <x-product-card></x-product-card>
-                </div>
-                <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-                    <x-product-card></x-product-card>
-                </div>
-                
+                        <x-product-card :product="$product"></x-product-card>
+
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
