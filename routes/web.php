@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\FilterController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+use TCG\Voyager\Facades\Voyager;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,17 +17,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[ProductController::class,'index']);
-Route::get('/show',[ProductController::class,'show']);
+
 Route::get('/checkout', function () {
     return view('products.checkout-page');
 });
 Route::get('/show', function () {
     return view('products.show');
 });
-Route::get('/search', function () {
-    return view('products.search');
-});
+// Route::get('/search', function () {
+// return view('products.search');
+// });
 
+Route::get('/filter',[FilterController::class,'index']);
+Route::get('/search', [FilterController::class, 'search']);
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
