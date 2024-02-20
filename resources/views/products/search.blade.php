@@ -9,8 +9,8 @@
                     <div class="flex items-center">
                         <div id="search-bar" class="w-120 bg-white rounded-md shadow-lg z-10">
 
-                            <form action='search' class="flex items-center justify-center p-2">
-                                <input type="text" name='q' placeholder="Search here" value="{{ request()->q ?? ''}}"
+                            <form class="flex items-center justify-center p-2">
+                                <input type="text" name='q' placeholder="Search here" id="search"
                                     class="w-full rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent">
                                 <button type="submit"
                                     class="bg-gray-800 text-white rounded-md px-4 py-1 ml-2 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50">
@@ -82,4 +82,43 @@
             </main>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $('#search').on('keyup', function(){
+            search();
+        });
+        search();
+        function search(){
+             var keyword = $('#search').val();
+             $.post('products.search',
+              {
+                 _token: $('meta[name="csrf-token"]').attr('content'),
+                 keyword:keyword
+               },
+               function(data){
+                table_post_row(data);
+                  console.log(data);
+               });
+        }
+        // table row with ajax
+        function table_post_row(res){
+        let htmlView = '';
+        if(res.products.length <= 0){
+            htmlView+= `
+               <tr>
+                  <td colspan="4">No data.</td>
+              </tr>`;
+        }
+        for(let i = 0; i < res.products.length; i++){
+            htmlView += `
+                <tr>
+                   <td>`+ (i+1) +`</td>
+                      <td>`+res.products[i].name+`</td>
+                       <td>`+res.products[i].phone+`</td>
+                </tr>`;
+        }
+             $('tbody').html(htmlView);
+        }
+        </script>    
 @endsection

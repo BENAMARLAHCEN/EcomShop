@@ -22,11 +22,17 @@ class FilterController extends Controller
 
     public function search(Request $request)
     {
-        $query = request()->input('q');
-        $products = Product::where('name', 'like', "%$query%")
-                ->paginate(6);
-                return view('products.search')->with('products', $products);
-    }
+        $products = Product::all();
+        if($request->keyword !=''){
+            $products = Product::where('name','LIKE','%'.$request->keyword.'%')->get();
+        }
+        return response()->json([
+            'products' => $products
+        ]);
 
+        // $products = Product::where('name', 'like', "%$query%")
+        //         ->paginate(6);
+        //         return view('products.search')->with('products', $products);
+    }
 
 }
