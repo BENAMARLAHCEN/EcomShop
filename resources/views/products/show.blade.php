@@ -1,120 +1,45 @@
 @extends('layout.app')
 
 @section('content')
-
-<div class="bg-gray-100 dark:bg-gray-800 py-8">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row -mx-4">
-            <div class="md:flex-1 px-4">
-                <div class="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
-                    <img class="w-full h-full object-cover" src="https://via.placeholder.com/600x400.png?text=Orange" alt="Orange Image">
+    <main class="my-8">
+        <div class="container mx-auto px-6">
+            <div class="md:flex md:items-center">
+                <div class="w-full h-64 md:w-1/2 lg:h-96">
+                    <img class="h-full w-full rounded-md object-cover max-w-lg mx-auto" src="/storage/{{$product->image}}"
+                        alt="{{ $product->name }}">
                 </div>
-                <div class="flex -mx-2 mb-4">
-                    <div class="w-1/2 px-2">
-                        <button class="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-full font-bold">Add to Cart</button>
-                    </div>
-                    <div class="w-1/2 px-2">
-                        <button class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full font-bold">Add to Wishlist</button>
-                    </div>
+                <div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
+                    <h3 class="text-gray-700 uppercase text-lg">{{ $product->name }}</h3>
+                    <p class="text-gray-700 text-lg ">{{ $product->description }}</p>
+                    <span class="text-gray-500 mt-3">${{ $product->price }}</span>
+                    <hr class="my-3">
+                    <form action="{{ route('cart.add') }}" method="POST">
+                        <div class="mt-2">
+                            <label class="text-gray-700 text-sm" for="count">Count:</label>
+                            <div class="flex items-center mt-1">
+                                <input type="number" name="quantity" value="1" min="1"
+                                    class="w-16 border rounded-md py-1 px-2">
+                            </div>
+                        </div>
+
+                        <div class="flex items-center mt-6">
+
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <button type="submit"
+                                class="px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">Add
+                                to Cart</button>
+
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="md:flex-1 px-4">
-                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">Organic Legumes Mix</h2>
-                <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
-                    Enjoy the goodness of our organic legumes mix. Packed with essential nutrients and proteins, it's perfect for your healthy lifestyle.
-                </p>
-                <div class="flex mb-4">
-                    <div class="mr-4">
-                        <span class="font-bold text-gray-700 dark:text-gray-300">Price:</span>
-                        <span class="text-gray-600 dark:text-gray-300">$29.99</span>
-                    </div>
-                    <div>
-                        <span class="font-bold text-gray-700 dark:text-gray-300">Availability:</span>
-                        <span class="text-gray-600 dark:text-gray-300">In Stock</span>
-                    </div>
-                </div>
-                
-                <div class="mb-4">
-                    <span class="font-bold text-gray-700 dark:text-gray-300">Select Quantity:</span>
-                    <div class="flex items-center mt-2">
-                        <button id="decrementBtn" class="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-l-lg font-bold mr-1 hover:bg-gray-400 dark:hover:bg-gray-600">-</button>
-                        <input id="quantityInput" type="text" value="1" class="w-12 text-center border border-gray-400 rounded-none py-2" readonly>
-                        <button id="incrementBtn" class="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-r-lg font-bold ml-1 hover:bg-gray-400 dark:hover:bg-gray-600">+</button>
-                    </div>
-                </div>
-                
-                <div class="mb-4">
-                    <span class="font-bold text-gray-700 dark:text-gray-300">Rating:</span>
-                    <div class="flex items-center mt-2">
-                        <span class="text-yellow-400">&#9733;</span>
-                        <span class="text-yellow-400">&#9733;</span>
-                        <span class="text-yellow-400">&#9733;</span>
-                        <span class="text-yellow-400">&#9733;</span>
-                        <span class="text-gray-400">&#9733;</span>
-                    </div>
-                </div>
-                
-                <div>
-                    <span class="font-bold text-gray-700 dark:text-gray-300">Product Description:</span>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm mt-2">
-                        Our organic legumes mix is a blend of various nutritious legumes, including lentils, chickpeas, and beans. Whether you're making soups, salads, or side dishes, our legumes mix adds a healthy and delicious touch to your meals. Rich in fiber, vitamins, and minerals, it's a must-have for any health-conscious individual.
-                    </p>
-                </div>
-                <div class="mt-4">
-                    <span class="font-bold text-gray-700 dark:text-gray-300">Additional Information:</span>
-                    <ul class="text-gray-600 dark:text-gray-300 text-sm mt-2">
-                        <li>Weight: 500g</li>
-                        <li>Origin: Organic farms</li>
-                        <li>Storage: Keep in a cool, dry place</li>
-                        <li>Expiration Date: DD/MM/YYYY</li>
-                    </ul>
+            <div class="mt-16">
+                <h3 class="text-gray-600 text-2xl font-medium">More Products</h3>
+                <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
+                    <!-- Product suggestions -->
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<!-- Related Products Section -->
-<div class="bg-gray-100 dark:bg-gray-800 py-8">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Related Products</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            <!-- Related Product Card -->
-            <div class="bg-white dark:bg-gray-700 shadow-md rounded-lg overflow-hidden">
-                <img class="w-full h-40 object-cover" src="https://via.placeholder.com/300x200.png?text=Related+Product+1" alt="Related Product 1">
-                <div class="p-4">
-                    <h3 class="font-semibold text-gray-800 dark:text-white">Related Product 1</h3>
-                    <p class="text-gray-600 dark:text-gray-300">$19.99</p>
-                    <button class="mt-2 w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-full font-bold">Add to Cart</button>
-                </div>
-            </div>
-            <!-- Add more related product cards here -->
-        </div>
-    </div>
-</div>
-
-<script>
-    // Get elements
-    const decrementBtn = document.getElementById('decrementBtn');
-    const incrementBtn = document.getElementById('incrementBtn');
-    const quantityInput = document.getElementById('quantityInput');
-
-    // Add event listeners
-    decrementBtn.addEventListener('click', decrement);
-    incrementBtn.addEventListener('click', increment);
-
-    // Functions
-    function decrement() {
-        const currentValue = parseInt(quantityInput.value);
-        if (currentValue > 1) {
-            quantityInput.value = currentValue - 1;
-        }
-    }
-
-    function increment() {
-        const currentValue = parseInt(quantityInput.value);
-        quantityInput.value = currentValue + 1;
-    }
-</script>
-
+    </main>
 @endsection
