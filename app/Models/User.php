@@ -21,6 +21,7 @@ class User extends \TCG\Voyager\Models\User
         'name',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -41,4 +42,20 @@ class User extends \TCG\Voyager\Models\User
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // public function roles()
+    // {
+    //     return $this->hasOne(Roles::class);
+    // }
+
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
+
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
