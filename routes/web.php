@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\FilterController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,9 @@ Route::get('/',[ProductController::class,'index']);
 
 Route::get('/checkout', function () {
     return view('products.checkout-page');
+});
+Route::get('/contact', function () {
+    return view('contact');
 });
 Route::get('/show', function () {
     return view('products.show');
