@@ -82,6 +82,6 @@ class MollieController extends Controller
 
     public function cancel()
     {
-        echo "Payment is cancelled.";
+        return redirect()->route('cart.view')->with('error','Payment is cancelled.');
     }
 }
