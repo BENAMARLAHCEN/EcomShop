@@ -28,6 +28,7 @@
 <body class="">
     @include('partials.header')
     <x-success-message />
+    <x-error-message />
 
     
     <main>
