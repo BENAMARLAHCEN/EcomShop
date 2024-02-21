@@ -2,7 +2,7 @@
     class="text-slate-700 relative flex max-w-screen-xl flex-col overflow-hidden px-4 py-4 lg:mx-auto lg:flex-row lg:items-center">
     <a href="/" class="flex items-center whitespace-nowrap text-2xl font-black">
         <span class="mr-2 w-9">
-            <img src="/storage/images/ecomshop.png" alt="logo" />
+            <img src="{{asset('images/ecomshop.png')}}" alt="logo" />
         </span>
         EcomShop
     </a>
