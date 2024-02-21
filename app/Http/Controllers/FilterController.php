@@ -21,18 +21,19 @@ class FilterController extends Controller
     }
 
     public function search(Request $request)
-    {
-        $products = Product::all();
-        if($request->keyword !=''){
-            $products = Product::where('name','LIKE','%'.$request->keyword.'%')->get();
-        }
-        return response()->json([
-            'products' => $products
-        ]);
+{
+    $products = Product::query();
 
-        // $products = Product::where('name', 'like', "%$query%")
-        //         ->paginate(6);
-        //         return view('products.search')->with('products', $products);
+    if ($request->keyword) {
+        $products->where('name', 'LIKE', '%' . $request->keyword . '%');
     }
 
+    if ($request->category) {
+        $products->whereIn('category_id', $request->category);
+    }
+
+    $filteredProducts = $products->get();
+
+    return response()->json(['products' => $filteredProducts]);
+}
 }
