@@ -23,18 +23,11 @@ use TCG\Voyager\Facades\Voyager;
 
 Route::get('/',[ProductController::class,'index']);
 
-Route::get('/checkout', function () {
-    return view('products.checkout-page');
-});
 Route::get('/contact', function () {
     return view('contact');
 });
-Route::get('/show', function () {
-    return view('products.show');
-});
-Route::get('/search', function () {
-    return view('products.search');
-});
+
+
 
 
 Route::get('/filter',[FilterController::class,'index']);
@@ -46,27 +39,34 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 
-Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
-Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.remove');
-Route::post('/cart/update', [CartController::class, 'updateCartItemQuantity'])->name('cart.update');
-Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
-Route::post('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clear');
+
+Route::middleware('guest')->group( function () {
 
 
 Route::get('/login', [AuthController::class, 'index'])->name('login.index');
 Route::get('/register', [AuthController::class, 'create'])->name('register.index');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'store'])->name('register');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
+});
 
 Route::get('/products/{name}', [ProductController::class, 'show'])->name('products.show');
+
+
+Route::middleware('auth')->group( function () {
+
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.remove');
+Route::post('/cart/update', [CartController::class, 'updateCartItemQuantity'])->name('cart.update');
+Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
+Route::post('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clear');
 
 Route::get('/orders', [OrderController::class, 'show'])->name('orders');
 Route::get('/orders/place', [OrderController::class, 'index'])->name('orders.index');
 
-
-
 Route::post('/payment',[MollieController::class,'mollie'])->name('mollie');
 Route::get('/success',[MollieController::class,'success'])->name('success');
 Route::get('/cancel',[MollieController::class,'cancel'])->name('cancel');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+});

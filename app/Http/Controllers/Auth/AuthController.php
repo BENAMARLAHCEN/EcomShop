@@ -42,14 +42,15 @@ class AuthController extends Controller
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => 'required|confirmed|min:6'
         ]);
-        $formFields['role_id'] = 2 ;
+        $formFields['role_id'] = 2;
 
         $formFields['password'] = hash('sha256', $formFields['password']);
 
         $user = User::create($formFields);
-        
+
 
         auth()->login($user);
+
 
         return redirect('/')->with('success', 'User created and logged in');
     }
@@ -63,14 +64,16 @@ class AuthController extends Controller
 
         if (auth()->attempt($formFields)) {
             $request->session()->regenerate();
-
-            return redirect('/')->with('success', 'You are now logged in!');
+            if (auth()->user()->role_id == 1) {
+                return redirect('/admin')->with('success', 'You are now logged in!');
+            } else
+                return redirect('/')->with('success', 'You are now logged in!');
         }
 
         return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
     }
 
-    
+
 
     public function logout(Request $request)
     {
