@@ -3,7 +3,7 @@
 @section('content')
     <style>
         .login_img_section {
-            background: linear-gradient(rgba(2, 2, 2, .7), rgba(0, 0, 0, .7)), url(https://images.unsplash.com/photo-1650825556125-060e52d40bd0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80) center center;
+            background: url(https://pfrsa.pl/dam/jcr:48e42c1d-492c-41e1-9510-8f8576bdfa94/ecommerce.jpg) center center;
         }
     </style>
     <div class="h-screen flex">
@@ -17,19 +17,7 @@
                     z-0">
 
             </div>
-            <div class="w-full mx-auto px-20 flex-col items-center space-y-6">
-                <h1 class="text-white font-bold text-4xl font-sans">EcomShop</h1>
-                <p class="text-white mt-1">Welcome to EcomShop, your ultimate online shopping destination! Discover a world
-                    of endless possibilities with our vast selection of products ranging from fashion, electronics, home
-                    essentials, beauty products, and so much more. Whether you're looking for the latest fashion trends,
-                    cutting-edge gadgets, or everyday household items, we've got you covered.</p>
-
-                <div class="flex justify-center lg:justify-start mt-6">
-                    <a href="/register"
-                        class="hover:bg-indigo-700 hover:text-white hover:-translate-y-1 transition-all duration-500 bg-white text-indigo-800 mt-4 px-4 py-2 rounded-2xl font-bold mb-2">Get
-                        Started</a>
-                </div>
-            </div>
+            
         </div>
         <div class="flex w-full lg:w-1/2 justify-center items-center bg-white space-y-8">
             <div class="w-full px-8 md:px-32 lg:px-24">

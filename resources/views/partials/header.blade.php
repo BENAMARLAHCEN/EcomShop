@@ -19,13 +19,13 @@
         <ul class="flex w-full flex-col items-center space-y-2 lg:flex-row lg:justify-center lg:space-y-0">
             <li class="lg:mr-12"><a
                     class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2"
-                    href="#">Components</a></li>
+                    href="/">Home</a></li>
             <li class="lg:mr-12"><a
                     class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2"
-                    href="#">Pricing</a></li>
+                    href="search">Our Products</a></li>
             <li class="lg:mr-12"><a
                     class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2"
-                    href="#">Contact</a></li>
+                    href="contact">Contact</a></li>
             <li class="lg:mr-12"><a
                     class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2"
                     href="#">FAQ</a></li>
