@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\MollieController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -53,5 +55,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/products/{name}', [ProductController::class, 'show'])->name('products.show');
 
+Route::get('/orders', [OrderController::class, 'show'])->name('orders');
 Route::get('/orders/place', [OrderController::class, 'index'])->name('orders.index');
-Route::post('/orders/place', [OrderController::class, 'placeOrder'])->name('orders.place');
+
+
+
+Route::post('/payment',[MollieController::class,'mollie'])->name('mollie');
+Route::get('/success',[MollieController::class,'success'])->name('success');
+Route::get('/cancel',[MollieController::class,'cancel'])->name('cancel');
