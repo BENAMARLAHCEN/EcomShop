@@ -14,14 +14,19 @@ class OrderController extends Controller
     {
         return view('order.palce');
     }
-    
 
-    public function placeOrder(Request $request)
+    public function show()
     {
-        $request->validate([
-            'address' => 'required|string',
-        ]);
 
+        $user = Auth::user();
+        $orders = $user->orders()->latest()->get(); 
+        return view('order.index', compact('orders'));
+    }
+
+
+
+    public static function Order($address)
+    {
         $user = Auth::user();
 
         $cart = $user->cart;
@@ -33,10 +38,11 @@ class OrderController extends Controller
         $totalAmount = $cart->cartItems->sum(function ($cartItem) {
             return $cartItem->product->price * $cartItem->quantity;
         });
+        $totalAmount = number_format($totalAmount, 2,'.','');
 
         $order = new Order([
             'user_id' => $user->id,
-            'address' => $request->input('address'),
+            'address' => $address,
             'total_amount' => $totalAmount,
             'status' => 'pending',
         ]);
@@ -54,7 +60,5 @@ class OrderController extends Controller
         }
 
         $cart->cartItems()->delete();
-
-        return redirect()->route('cart.view', $order->id)->with('success', 'Order placed successfully.');
     }
 }

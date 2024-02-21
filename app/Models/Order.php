@@ -20,9 +20,9 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function or ()
+    public function orderItem()
     {
-        return $this->hasMany(CartItem::class);
+        return $this->hasMany(OrderItem::class);
     }
 
 }
