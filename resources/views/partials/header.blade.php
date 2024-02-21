@@ -1,8 +1,8 @@
 <header
     class="text-slate-700 relative flex max-w-screen-xl flex-col overflow-hidden px-4 py-4 lg:mx-auto lg:flex-row lg:items-center">
     <a href="/" class="flex items-center whitespace-nowrap text-2xl font-black">
-        <span class="mr-2 w-8">
-            <img src="/images/JOJj79gp_Djhwdp_ZOKLL.png" alt="" />
+        <span class="mr-2 w-9">
+            <img src="/storage/images/ecomshop.png" alt="logo" />
         </span>
         EcomShop
     </a>
@@ -22,7 +22,7 @@
                     href="/">Home</a></li>
             <li class="lg:mr-12"><a
                     class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2"
-                    href="search">Our Products</a></li>
+                    href="filter">Our Products</a></li>
             <li class="lg:mr-12"><a
                     class="rounded text-gray-700 transition focus:outline-none focus:ring-1 focus:ring-blue-700 focus:ring-offset-2"
                     href="contact">Contact</a></li>

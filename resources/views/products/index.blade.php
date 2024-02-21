@@ -86,11 +86,11 @@
 
     </section>
     <section class="text-gray-600 body-font">
-      <div class="container px-5 py-24 mx-auto">
+      <div class="container px-5 py-24 mx-auto ">
           <h2 class="text-3xl font-bold mb-8 text-center text-green-900">Explore Our Fresh Fruits and Vegetables</h2>
-          <div class="flex flex-wrap -m-4">
+          <div class="flex flex-wrap -m-4 ">
               @foreach ($products as $product)
-                  <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+                  <div class="lg:w-1/4 md:w-1/2 p-4 w-full ">
                       <x-product-card :product="$product"></x-product-card>
                   </div>
               @endforeach
