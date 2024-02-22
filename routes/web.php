@@ -32,6 +32,7 @@ Route::get('/contact', function () {
 
 Route::get('/filter',[FilterController::class,'index']);
 Route::get('/search', [FilterController::class, 'search']);
+Route::get('/search/{ids}', [FilterController::class, 'filterByCategory']);
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

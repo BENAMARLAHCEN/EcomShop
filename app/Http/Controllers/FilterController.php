@@ -17,23 +17,35 @@ class FilterController extends Controller
     {
         $products = Product::get();
         $categories = Category::get();
-        return view('products.search',compact('products','categories')); 
+        return view('products.search', compact('products', 'categories'));
     }
 
     public function search(Request $request)
-{
-    $products = Product::query();
+    {
+        $products = Product::query();
 
-    if ($request->keyword) {
-        $products->where('name', 'LIKE', '%' . $request->keyword . '%');
+        if ($request->keyword) {
+            $products->where('name', 'LIKE', '%' . $request->keyword . '%');
+        }
+
+        if ($request->category) {
+            $products->whereIn('category_id', $request->category);
+        }
+
+        $filteredProducts = $products->get();
+
+        return response()->json(['products' => $filteredProducts]);
     }
 
-    if ($request->category) {
-        $products->whereIn('category_id', $request->category);
+    public function filterByCategory($ids)
+    {
+        $ids = explode(',', $ids);
+
+        if (count($ids) == 0) {
+            $filteredProducts = Product::get();
+        } else {
+            $filteredProducts = Product::whereIn('category_id', $ids)->get();
+        }
+        return response()->json(['products' => $filteredProducts]);
     }
-
-    $filteredProducts = $products->get();
-
-    return response()->json(['products' => $filteredProducts]);
-}
 }

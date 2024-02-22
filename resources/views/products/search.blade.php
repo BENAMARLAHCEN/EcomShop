@@ -24,59 +24,26 @@
                 <section aria-labelledby="products-heading" class="pt-6 pb-24">
                     <h2 id="products-heading" class="sr-only">Vegetables & Fruits</h2>
                     <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-                        <form class="hidden lg:block">
+
+                        <div class="hidden lg:block">
+                            <h3 class="mb-3">Categories:</h3>
+
                             <ul role="list"
                                 class="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-                                @foreach ($categories as $category)
-                                    <li>
-                                        <a href="#"
-                                            x-on:click="filterByCategory('{{ $category->name }}')">{{ $category->name }}</a>
-                                    </li>
-                                @endforeach
+                                @if (!empty($categories))
+                                    @foreach ($categories as $category)
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" attr-name="{{ $category->name }}"
+                                                class="custom-control-input category_checkbox" id="{{ $category->id }}">
+                                            <label class="custom-control-label"
+                                                for="{{ $category->id }}">{{ ucfirst($category->name) }}</label>
+                                        </div>
+                                    @endforeach
+                                @endif
+
                             </ul>
-                            <div x-data="{ open: false }" class="border-b border-gray-200 py-6">
-                                <h3 class="-my-3 flow-root">
-                                    <button type="button" x-description="Expand/collapse section button"
-                                        class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500"
-                                        aria-controls="filter-section-0" @click="open = !open" aria-expanded="false"
-                                        x-bind:aria-expanded="open.toString()">
-                                        <span class="font-medium text-gray-900">Category</span>
-                                        <span class="ml-6 flex items-center">
-                                            <svg class="h-5 w-5"
-                                                x-description="Expand icon, show/hide based on section open state. Heroicon name: mini/plus"
-                                                x-show="!(open)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                                fill="currentColor" aria-hidden="true">
-                                                <path
-                                                    d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z">
-                                                </path>
-                                            </svg>
-                                            <svg class="h-5 w-5"
-                                                x-description="Collapse icon, show/hide based on section open state. Heroicon name: mini/minus"
-                                                x-show="open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                                fill="currentColor" aria-hidden="true">
-                                                <path fill-rule="evenodd"
-                                                    d="M3 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H3.75A.75.75 0 013 10z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                        </span>
-                                    </button>
-                                </h3>
-                                <div class="pt-6" x-description="Filter section, show/hide based on section state."
-                                    id="filter-section-0" x-show="open">
-                                    <div class="space-y-4">
-                                        @foreach ($categories as $index => $category)
-                                            <div class="flex items-center">
-                                                <input id="searchForm" :name="'category_id'"
-                                                    value="{{ $category->id }}" type="checkbox"
-                                                    class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                                <label :for="'filter-section-0-' + index"
-                                                    class="ml-3 text-sm text-gray-600">{{ $category->name }}</label>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                            
+                        </div>
 
                         <div class="lg:col-span-3">
                             @if (request()->input())
@@ -103,6 +70,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         function search() {
 
@@ -112,34 +82,27 @@
 
             var xhr = new XMLHttpRequest();
 
-            // Configure the request
             xhr.open('GET', '/search?keyword=' + keyword, true);
             xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
 
-            // Define what happens on successful data submission
             xhr.onload = function() {
                 if (xhr.status >= 200 && xhr.status < 300) {
-                    // Handle success
                     var data = JSON.parse(xhr.responseText);
                     console.log(data);
                     table_post_row(data.products);
 
                 } else {
-                    // Handle error
                     console.error('Request failed with status', xhr.status);
                 }
             };
 
-            // Define what happens in case of an error
             xhr.onerror = function() {
                 console.error('Request failed');
             };
 
-            // Send the request
             xhr.send();
         }
 
-        // Function to handle keyup event on search input
         document.addEventListener('DOMContentLoaded', function() {
             var searchInput = document.getElementById('search');
             searchInput.addEventListener('keyup', function(event) {
@@ -188,26 +151,54 @@
             document.querySelector('#placeSearchResult').innerHTML = htmlView;
         }
     </script>
+
+
+
     <script>
-        document.getElementById('searchForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+        $(document).ready(function() {
+            $(document).on('click', '.category_checkbox', function() {
 
-            var formData = new FormData(this);
+                var ids = [];
 
-            fetch('search', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-Token': '{{ csrf_token() }}'
+                var counter = 0;
+                $('#catFilters').empty();
+                $('.category_checkbox').each(function() {
+                    if ($(this).is(":checked")) {
+                        ids.push($(this).attr('id'));
+                        counter++;
                     }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('placeSearchResult').innerHTML = data.html;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
                 });
+
+                if (counter == 0) {
+                    console.log('No Data Found');
+                    fetchCauseAgainstCategory('');
+                } else {
+                    fetchCauseAgainstCategory(ids);
+                }
+            });
         });
+
+    
+        function fetchCauseAgainstCategory(id) {
+    $.ajax({
+        type: 'GET',
+        url: '/search/' + id,
+        headers: {
+            'Content-Type': 'application/json', 
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') 
+        },
+        dataType: 'json', 
+        success: function(response) {
+            console.log(response);
+
+            if (response.length == 0) {
+                console.log('No Data Found');
+            } else {
+                table_post_row(response.products);
+            }
+        }
+    });
+}
+
     </script>
 @endsection
