@@ -74,7 +74,7 @@ class MollieController extends Controller
             session()->forget('quantity');
             session()->forget('address');
 
-            return redirect('/')->with('success', 'your order is completed');
+            return redirect('/orders')->with('success', 'your order is completed');
         } else {
             return redirect()->route('cancel');
         }
